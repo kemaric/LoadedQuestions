@@ -13,7 +13,9 @@ public class User {
     private ArrayList<User> friendsList;
     private int numGamesWon = 0;
     private int numGamesLost = 0;
+    private int currSpace = 0;
     private ArrayList<String> questionHist = new ArrayList<String>();
+    private boolean requireMove;
 
     public User (String name, int id, String email, ArrayList<User> friends) {
         userName = name;
@@ -43,6 +45,19 @@ public class User {
         return false;
     }
 
+    // Moves the current player on the board
+    public void movePlayer(int numSpaces) {
+        currSpace += numSpaces;
+    }
 
+    // Set the current player's status so that they need to respond to the game
+    public void requireAction() {
+        requireMove = true;
+    }
+
+    // Set the current player's status so that they do not need to respond to the game
+    public void noActionNeeded() {
+        requireMove = false;
+    }
 
 }
