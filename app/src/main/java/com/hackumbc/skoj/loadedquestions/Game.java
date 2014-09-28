@@ -29,14 +29,27 @@ public class Game {
         askPeriod = true;
     }
 
-    public void askQuestion (Question question) {
-        currQuestion = question;
-        askPeriod = false;
-        responsePeriod = true;
+    public boolean askQuestion (Question question) {
+        if (question != null) {
+            currQuestion = question;
+            askPeriod = false;
+            responsePeriod = true;
+            (question.getAsker()).noActionNeeded();
+            return true;
+        }
+        return false;
+    }
+
+    public Question getCurrQuestion() {
+        return currQuestion;
     }
 
     public User getCurrAsker() {
         return currAsker;
+    }
+
+    public ArrayList<User> getPlayerList() {
+        return players;
     }
 
     public boolean gameStatus() {
@@ -45,6 +58,23 @@ public class Game {
 
     public void addPlayer(User newPlayer) {
         players.add(newPlayer);
+    }
+
+    public void logPlayerResponse(Response response) {
+        currQuestion.addAnswer(response);
+        int index = this.getIndexOfUser((response.getUser()));
+        (players.get(index)).noActionNeeded();
+        (players.get(index)).addQuestionToHist(response.getResponse());
+    }
+
+
+    public int getIndexOfUser(User player) {
+        for (int x = 0; x < players.size(); x++) {
+            if (((players.get(x))).equals(player)) {
+                return x;
+            }
+        }
+        return -1;
     }
 
     // Returns true if the question asker is waiting for other players to respond
@@ -85,11 +115,6 @@ public class Game {
         }
     }
 
-    public void updateQuestion(Question newQuestion) {
-        currQuestion = newQuestion;
-    }
-
-
     public boolean isItTimeForPlayerToAsk() {
         if (askPeriod) {
             askPeriod = false;
@@ -98,5 +123,14 @@ public class Game {
         } else {
             return false;
         }
+    }
+
+    public boolean isGameFinished() {
+        for (User x : players) {
+            if (x.getCurrSpace() == boardLength) {
+                isGameDone = true;
+            }
+        }
+        return false;
     }
 }

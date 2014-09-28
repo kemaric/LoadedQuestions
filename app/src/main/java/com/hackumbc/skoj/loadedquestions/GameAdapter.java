@@ -17,6 +17,8 @@ public class GameAdapter extends FragmentActivity {
                              Bundle savedInstance){
         View view = inflater.inflate(R.layout.game, container,false);
         EditText user_input = (EditText)findViewById(R.id.questionEditText);
+        GameDriver gameDriver = new GameDriver();
+        gameDriver.runGameDriver();
         return view;
     }
 }
