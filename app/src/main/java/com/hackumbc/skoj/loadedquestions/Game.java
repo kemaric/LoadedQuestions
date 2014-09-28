@@ -1,5 +1,7 @@
 package com.hackumbc.skoj.loadedquestions;
 
+import com.google.android.gms.games.quest.Quest;
+
 import java.util.ArrayList;
 
 /**
@@ -20,11 +22,16 @@ public class Game {
     private boolean matchPeriod;
 
     // Constructor for creating a new game
-    public Game(ArrayList<User> playerList, Question firstQuestion) {
-        numPlayers = playerList.size();
-        currQuestion = firstQuestion;
+    public Game(User startingPlayer, int numPlayers) {
+        this.numPlayers = numPlayers;
         boardLength = (numPlayers - 1) * 3;
-        currAsker = firstQuestion.getAsker();
+        currAsker = startingPlayer;
+        askPeriod = true;
+    }
+
+    public void askQuestion (Question question) {
+        currQuestion = question;
+        askPeriod = false;
         responsePeriod = true;
     }
 
@@ -35,51 +42,61 @@ public class Game {
     public boolean gameStatus() {
         return isGameDone;
     }
+
+    public void addPlayer(User newPlayer) {
+        players.add(newPlayer);
+    }
+
     // Returns true if the question asker is waiting for other players to respond
-    public boolean isItTimeForPlayersToRespond () {
+    public boolean isItTimeForPlayersToRespond() {
         if (currQuestion.responseSize() != (numPlayers - 1)) {
             responsePeriod = true;
-        }
-        else{
+        } else {
+            matchPeriod = true;
             responsePeriod = false;
         }
         return responsePeriod;
     }
 
-    public boolean isItTimeForPlayerToMatch () {
+    public boolean isItTimeForPlayerToMatch() {
         if (matchPeriod) {
-
+            matchPeriod = false;
+            turnChange = true;
+            return true;
+        } else {
+            return false;
         }
     }
-
-
 
     public boolean changeTurn() {
         if (turnChange) {
             if (currAskerIndex == (numPlayers - 1)) {
                 currAskerIndex = 0;
-            }
-            else {
+            } else {
                 currAskerIndex++;
             }
             currAsker = players.get(currAskerIndex);
             turnChange = false;
             askPeriod = true;
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
     public void updateQuestion(Question newQuestion) {
-            currQuestion = newQuestion;
+        currQuestion = newQuestion;
     }
 
 
-    public boolean isItTimeForPlayerToAsk () {
-        if (turnChange) {
-
+    public boolean isItTimeForPlayerToAsk() {
+        if (askPeriod) {
+            askPeriod = false;
+            responsePeriod = true;
+            return true;
+        } else {
+            return false;
         }
     }
-
-
-
-
 }

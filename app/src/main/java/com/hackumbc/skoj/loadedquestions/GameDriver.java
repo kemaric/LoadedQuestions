@@ -1,5 +1,7 @@
 package com.hackumbc.skoj.loadedquestions;
 
+import android.widget.EditText;
+
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
@@ -8,25 +10,19 @@ import java.util.concurrent.*;
  */
 public class GameDriver {
 
-    public void startGame() {
-
-    }
-
-
-    public static void main (String[] args) {
+    public static void runGameDriver() {
         // one player creates the game by asking a question
         // this sends request notifications to other players to accept and then send responses
-        int[] x = {1, 2, 3};
-        User startingPlayer = new User("Justin", 12, "aaa@aol.com", x);
-        Question firstQuestion = new Question("What do you like with Chocolate?", startingPlayer);
+        User startingPlayer = new User("Justin", 12, "aaa@aol.com");
         // players that accept are added to the current game's playerList
-        ArrayList<User> playerList = new ArrayList<User>();
-        playerList.add(startingPlayer);
-        playerList.add(new User("John", 13, "aaa@aol.com", x));
-        playerList.add(new User("Sarah", 14, "aaa@aol.com", x));
-        playerList.add(new User("Bob", 15, "aaa@aol.com", x));
-        Game game = new Game(playerList, firstQuestion);
+        int numPlayers = 4;
+        Game game = new Game(startingPlayer, numPlayers);
+        game.addPlayer(startingPlayer);
+        game.addPlayer(new User("John", 13, "aaa@aol.com"));
+        game.addPlayer(new User("Sarah", 14, "aaa@aol.com"));
+        game.addPlayer(new User("Bob", 15, "aaa@aol.com"));
         while (!(game.gameStatus())) {
+            Question currQuestion = new Question("What do you like with Chocolate?", startingPlayer);
             // send notification to asker to enter question here
             //Question currQuestion = new Question(user_input, game.getCurrAsker());
            // game.updateQuestion(currQuestion);
@@ -51,5 +47,4 @@ public class GameDriver {
             game.changeTurn();
         }
     }
-}
 }
