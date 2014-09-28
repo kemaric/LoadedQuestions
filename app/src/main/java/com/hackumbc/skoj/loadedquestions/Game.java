@@ -16,6 +16,7 @@ public class Game {
     public Game(ArrayList<User> playerList, Question firstQuestion) {
         numPlayers = playerList.size();
         currQuestion = firstQuestion;
+
     }
 
 

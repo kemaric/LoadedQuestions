@@ -25,11 +25,19 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.firebase.client.Firebase;
+import com.firebase.simplelogin.FirebaseSimpleLoginError;
+import com.firebase.simplelogin.FirebaseSimpleLoginUser;
+import com.firebase.simplelogin.SimpleLogin;
+import com.firebase.simplelogin.SimpleLoginAuthenticatedHandler;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
 import java.util.ArrayList;
 import java.util.List;
+import android.content.Intent;
+import android.widget.Toast;
 
 
 /**
@@ -56,12 +64,13 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
 
     // UI references.
     private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
+    private EditText mPasswordView,userEmail,fname,lname,confirmpass;
     private View mProgressView;
     private View mEmailLoginFormView;
     private SignInButton mPlusSignInButton;
     private View mSignOutButtons;
     private View mLoginFormView;
+    private Button confirmreg, defaultRegButton,defaultLoginB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +117,39 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                 attemptLogin();
             }
         });
+        final Intent loginIntent = this.getIntent();
+        Button registrationButton = (Button) findViewById(R.id.email_registration_button);
+        registrationButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,RegisterUser.class));
+            }
+        });
 
+        defaultLoginB = (Button) findViewById(R.id.default_login_button);
+        defaultLoginB.setOnClickListener(new OnClickListener() {
+            @Override
+           public void onClick(View v) {
+                Firebase myRef = new Firebase("https://fiery-torch-865.firebaseio.com/");
+                SimpleLogin authClient = new SimpleLogin(myRef, getApplicationContext());
+                authClient.loginWithEmail("email@example.com", "very secret", new SimpleLoginAuthenticatedHandler() {
+                    public void authenticated(FirebaseSimpleLoginError error, FirebaseSimpleLoginUser user) {
+                        if(error != null) {
+                            // There was an error logging into this account
+                            Toast.makeText(getApplicationContext(),"There was an error logging into this account!",Toast.LENGTH_LONG);
+
+                        }
+                        else {
+                            // We are now logged in
+                            Toast.makeText(getApplicationContext(),"Login Successful!",Toast.LENGTH_LONG);
+                            Intent mainActivityIntent = new Intent(LoginActivity.this,MyActivity.class);
+                            //Bundle new
+                            startActivity(mainActivityIntent);
+                        }
+                    }
+                });
+            }
+        });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         mEmailLoginFormView = findViewById(R.id.email_login_form);
