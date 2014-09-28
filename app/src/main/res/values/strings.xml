@@ -12,4 +12,10 @@
     <string name="total_score">Total Score</string>
     <string name="my_registration">Register New Account</string>
 
+    <string-array name="questionOptions_array">
+        <item>Choose a random previous question</item>
+        <item>Create a new question</item>
+    </string-array>
+
 </resources>
+

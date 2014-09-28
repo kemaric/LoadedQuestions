@@ -43,6 +43,10 @@ public class User {
         return currSpace;
     }
 
+    public ArrayList<String> getQuestionHist() {
+        return questionHist;
+    }
+
     public boolean isMoveNeeded() {
         return requireMove;
     }

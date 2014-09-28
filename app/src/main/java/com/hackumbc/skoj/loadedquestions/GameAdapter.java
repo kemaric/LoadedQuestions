@@ -21,4 +21,5 @@ public class GameAdapter extends FragmentActivity {
         gameDriver.runGameDriver();
         return view;
     }
+
 }
