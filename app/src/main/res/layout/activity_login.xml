@@ -97,6 +97,22 @@
                     android:textStyle="bold"/>
 
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/default_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/default_login_button"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/default_login"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
 
             <!--Registration Option-->
             <LinearLayout
