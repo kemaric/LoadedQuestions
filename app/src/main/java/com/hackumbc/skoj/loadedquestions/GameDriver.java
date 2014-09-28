@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -83,44 +84,50 @@ public class GameDriver extends FragmentActivity {
 
         // one player creates the game by asking a question
         // this sends request notifications to other players to accept and then send responses
-        startingPlayer = new User("Justin", 12, "aaa@aol.com");
+        startingPlayer = new User("kemari", 12, "kemarice@gmail.com");
         // players that accept are added to the current game's playerList
-        int numPlayers = 4;
+        int numPlayers = this.getIntent().getBundleExtra("userInfo").getInt("numPlayers");
         game = new Game(startingPlayer, numPlayers);
         game.addPlayer(startingPlayer);
-        player1 = new User("John", 13, "aaa@aol.com");
-        player2 = new User("Sarah", 14, "aaa@aol.com");
-        player3 = new User("Bob", 15, "aaa@aol.com");
+        player1 = new User("ogue", 13, "aaa13@aol.com");
+        player2 = new User("justin", 14, "aaa14@aol.com");
+        player3 = new User("siddy", 15, "aaa15@aol.com");
         game.addPlayer(player1);
         game.addPlayer(player2);
         game.addPlayer(player3);
         while (!(game.gameStatus())) {
             while(game.isItTimeForPlayerToAsk()) {
-                spinner = (Spinner) findViewById(R.id.questionOption_spinner);
-                adapter = ArrayAdapter.createFromResource(this,
-                        R.array.questionOptions_array, android.R.layout.simple_spinner_item);
-            // Specify the layout to use when the list of choices appears
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            // Apply the adapter to the spinner
-                spinner.setAdapter(adapter);
-            // Respond to user input
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if (position == 0) {
-                            Random random = new Random();
-                            int maxSize = ((game.getCurrAsker()).getQuestionHist()).size();
-                            int randomPos = random.nextInt(maxSize);
-                            nextQuestion = ((game.getCurrAsker()).getQuestionHist()).get(randomPos);
-                        } else {
-                            nextQuestion = ((EditText) findViewById(R.id.chooseQuestionToAsk)).toString();
-                        }
-                    }
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent){
-
-                        }
-                });
+//                spinner = (Spinner) findViewById(R.id.questionOption_spinner);
+//                adapter = ArrayAdapter.createFromResource(this,
+//                        R.array.questionOptions_array, android.R.layout.simple_spinner_item);
+//            // Specify the layout to use when the list of choices appears
+//                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//            // Apply the adapter to the spinner
+//                spinner.setAdapter(adapter);
+//            // Respond to user input
+//                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                        if (position == 0) {
+//                            Random random = new Random();
+//                            int maxSize = ((game.getCurrAsker()).getQuestionHist()).size();
+//                            int randomPos = random.nextInt(maxSize);
+//                            nextQuestion = ((game.getCurrAsker()).getQuestionHist()).get(randomPos);
+//                        } else {
+//                            nextQuestion = ((EditText) findViewById(R.id.chooseQuestionToAsk)).toString();
+//                        }
+//                    }
+//                        @Override
+//                        public void onNothingSelected(AdapterView<?> parent){
+//
+//                        }
+//                });
+                ArrayList<Question> questionList = new ArrayList<Question>();
+                questionList.add(new Question("What is your favorite movie?", startingPlayer));
+                questionList.add(new Question("What is your favorite food?", startingPlayer));
+                questionList.add(new Question("Who is the hottest celebrity?", startingPlayer));
+                questionList.add(new Question("What is the best band?", startingPlayer));
+                            nextQuestion = (questionList.get(1)).getQuestion();
                 currQuestion = new Question(nextQuestion, game.getCurrAsker());
                 // send notification to asker to enter question here
                 while (!(game.askQuestion(currQuestion))) {
@@ -131,6 +138,7 @@ public class GameDriver extends FragmentActivity {
 
             // question is sent to other players and they must now respond
             while (game.isItTimeForPlayersToRespond()) {
+                int playersLeft = numPlayers - 1;
                 try {
                     Thread.sleep(6000);   // 600000              //1000 milliseconds is one second.
                 } catch(InterruptedException ex) {
@@ -138,9 +146,8 @@ public class GameDriver extends FragmentActivity {
                 }
                 for (User x : game.getPlayerList()) {
                     if (!((game.getCurrAsker()).equals(x)) && x.isMoveNeeded()) {
-                        int indexOfPlayer = game.getIndexOfUser(x);
                         // will take their input
-                        Response playerAnswer = new Response(x, "peanuts");
+                        Response playerAnswer = new Response(x, "Peanuts");
                         game.logPlayerResponse(playerAnswer);
                     }
                 }

@@ -123,6 +123,11 @@ public class Game {
     public boolean isItTimeForPlayerToAsk() {
         if (askPeriod) {
             askPeriod = true;
+            for (User x : players) {
+                if (!(x.equalsOtherPlayer(currAsker))) {
+                    x.requireAction();
+                }
+            }
             responsePeriod = true;
             return true;
         } else {
