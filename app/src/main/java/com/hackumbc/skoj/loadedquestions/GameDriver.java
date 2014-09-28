@@ -26,17 +26,19 @@ public class GameDriver extends FragmentActivity {
         game.addPlayer(player2);
         game.addPlayer(player3);
         while (!(game.gameStatus())) {
-            Question currQuestion = new Question("What do you like with Chocolate?", game.getCurrAsker());
-            // send notification to asker to enter question here
-            while (!(game.askQuestion(currQuestion))) {
-                // print "You did not enter a question!"
-                // Question newQuestion = new Question(user_input);
+            while(game.isItTimeForPlayerToAsk()) {
+                Question currQuestion = new Question("What do you like with Chocolate?", game.getCurrAsker());
+                // send notification to asker to enter question here
+                while (!(game.askQuestion(currQuestion))) {
+                    // print "You did not enter a question!"
+                    // Question newQuestion = new Question(user_input);
+                }
             }
 
             // question is sent to other players and they must now respond
             while (game.isItTimeForPlayersToRespond()) {
                 try {
-                    Thread.sleep(600000);                 //1000 milliseconds is one second.
+                    Thread.sleep(6000);   // 600000              //1000 milliseconds is one second.
                 } catch(InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
@@ -52,9 +54,17 @@ public class GameDriver extends FragmentActivity {
 
             while (game.isItTimeForPlayerToMatch()) {
                 // Drag and drop chooses the input
-
-
+                Response guess1 = new Response(game.getUserWithId(13), "peanuts");
+                Response guess2 = new Response(game.getUserWithId(14), "peanuts");
+                Response guess3 = new Response(game.getUserWithId(15), "peanuts");
+                game.matchUserInputforFour(guess1, guess2, guess3);
             }
+
+            if (game.isGameFinished()) {
+                // Congratulations!
+            }
+            game.changeTurn();
+
 /*
 //      This code was for asynchronous threads...
 //            ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -68,7 +78,6 @@ public class GameDriver extends FragmentActivity {
 //
 //            executorService.shutdown();
 */
-            game.changeTurn();
         }
     }
 }
