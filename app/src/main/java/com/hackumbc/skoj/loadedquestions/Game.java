@@ -40,12 +40,17 @@ public class Game {
         return false;
     }
 
-    public Question getCurrQuestion() {
-        return currQuestion;
-    }
-
     public User getCurrAsker() {
         return currAsker;
+    }
+
+    public User getUserWithId(int userId) {
+        for (User x : players) {
+            if (x.equalsOtherPlayerById(userId)) {
+                return x;
+            }
+        }
+        return null; // this case should never happen however
     }
 
     public ArrayList<User> getPlayerList() {
@@ -82,6 +87,7 @@ public class Game {
         if (currQuestion.responseSize() != (numPlayers - 1)) {
             responsePeriod = true;
         } else {
+            askPeriod = false;
             matchPeriod = true;
             responsePeriod = false;
         }
@@ -116,7 +122,7 @@ public class Game {
 
     public boolean isItTimeForPlayerToAsk() {
         if (askPeriod) {
-            askPeriod = false;
+            askPeriod = true;
             responsePeriod = true;
             return true;
         } else {
@@ -128,25 +134,66 @@ public class Game {
         for (User x : players) {
             if (x.getCurrSpace() == boardLength) {
                 isGameDone = true;
+                return true;
             }
         }
         return false;
     }
 
-    public void matchUserInput(Response guess1, Response guess2, Response guess3) {
+    // Below are the scoring mechanisms for matching user guesses with the correct player guesses
+    public void matchUserInputforFour(Response guess1, Response guess2, Response guess3) {
         int score = 0;
-        for (int i = 0; i < 3; i++) {
-            if (currQuestion.isGuessCorrect((guess1))) {
-                score++;
-                if (currQuestion.isGuessCorrect((guess2))) {
-                    score++;
-                }
-                if (currQuestion.isGuessCorrect((guess3))) {
-                    score++;
-                }
-            }
-            int index = this.getIndexOfUser(this.currAsker);
-            (players.get(index)).movePlayer(score);
+        if (currQuestion.isGuessCorrect((guess1))) {
+            score++;
         }
+        if (currQuestion.isGuessCorrect((guess2))) {
+            score++;
+        }
+        if (currQuestion.isGuessCorrect((guess3))) {
+            score++;
+        }
+        int index = this.getIndexOfUser(this.currAsker);
+        (players.get(index)).movePlayer(score);
+    }
+
+    public void matchUserInputforFive(Response guess1, Response guess2, Response guess3, Response
+            guess4) {
+        int score = 0;
+        if (currQuestion.isGuessCorrect((guess1))) {
+            score++;
+        }
+        if (currQuestion.isGuessCorrect((guess2))) {
+            score++;
+        }
+        if (currQuestion.isGuessCorrect((guess3))) {
+            score++;
+        }
+        if (currQuestion.isGuessCorrect((guess4))) {
+            score++;
+        }
+        int index = this.getIndexOfUser(this.currAsker);
+        (players.get(index)).movePlayer(score);
+    }
+
+    public void matchUserInputforSix(Response guess1, Response guess2, Response guess3, Response
+            guess4, Response guess5) {
+        int score = 0;
+        if (currQuestion.isGuessCorrect((guess1))) {
+            score++;
+        }
+        if (currQuestion.isGuessCorrect((guess2))) {
+            score++;
+        }
+        if (currQuestion.isGuessCorrect((guess3))) {
+            score++;
+        }
+        if (currQuestion.isGuessCorrect((guess4))) {
+            score++;
+        }
+        if (currQuestion.isGuessCorrect((guess5))) {
+            score++;
+        }
+        int index = this.getIndexOfUser(this.currAsker);
+        (players.get(index)).movePlayer(score);
     }
 }

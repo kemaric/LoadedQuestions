@@ -79,7 +79,11 @@ public class User {
             return true;
         }
         else {
-            return this.userId == other.userId;
+            return this.userId == other.userId && this.getUserName() == other.getUserName();
         }
+    }
+
+    public boolean equalsOtherPlayerById(int otherId) {
+        return this.userId == otherId;
     }
 }
