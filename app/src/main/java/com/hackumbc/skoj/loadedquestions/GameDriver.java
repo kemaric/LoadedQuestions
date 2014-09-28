@@ -1,6 +1,7 @@
 package com.hackumbc.skoj.loadedquestions;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -47,16 +48,15 @@ public class GameDriver extends FragmentActivity {
     boolean questionAsked;
     boolean allAnswered;
 
-    public void runGameDriver() {
+    public void sendResponseNotification() {
         // Sets up notifications
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
+        Notification.Builder mBuilder =
+                new Notification.Builder(this)
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle("Loaded Questions!")
                         .setContentText("Your turn to respond!");
 // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, GameDriver.class);
-
 
 // The stack builder object will contain an artificial back stack for the
 // started Activity.
@@ -78,6 +78,9 @@ public class GameDriver extends FragmentActivity {
 // mId allows you to update the notification later on.
         int mId = 1;
         mNotificationManager.notify(mId, mBuilder.build());
+    }
+    public void runGameDriver() {
+
         // one player creates the game by asking a question
         // this sends request notifications to other players to accept and then send responses
         startingPlayer = new User("Justin", 12, "aaa@aol.com");
