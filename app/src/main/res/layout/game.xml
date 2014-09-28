@@ -17,16 +17,13 @@
     <TextView
         android:text="Questions"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <ToggleButton
-        android:id="@+id/togglebuttonForQuestions"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textOn="Vibrate on"
-        android:textOff="Vibrate off"
-        android:onClick="onToggleClicked"/>
+        android:layout_centerHorizontal="true"/>
 
+    <Spinner
+        android:id="@+id/questionOption_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
     <EditText
         android:layout_width="wrap_content"
