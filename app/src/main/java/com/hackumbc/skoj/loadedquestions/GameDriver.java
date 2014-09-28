@@ -1,6 +1,10 @@
 package com.hackumbc.skoj.loadedquestions;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -11,23 +15,39 @@ import java.util.concurrent.*;
  */
 public class GameDriver extends FragmentActivity {
 
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstance){
+        View view = inflater.inflate(R.layout.game, container,false);
+        EditText user_input = (EditText)findViewById(R.id.questionEditText);
+        GameDriver gameDriver = new GameDriver();
+        gameDriver.runGameDriver();
+        return view;
+    }
+
+
+
+    Game game;
+    User startingPlayer;
+    User player1, player2, player3;
+    Question currQuestion;
+
     public void runGameDriver() {
         // one player creates the game by asking a question
         // this sends request notifications to other players to accept and then send responses
-        User startingPlayer = new User("Justin", 12, "aaa@aol.com");
+        startingPlayer = new User("Justin", 12, "aaa@aol.com");
         // players that accept are added to the current game's playerList
         int numPlayers = 4;
-        Game game = new Game(startingPlayer, numPlayers);
+        game = new Game(startingPlayer, numPlayers);
         game.addPlayer(startingPlayer);
-        User player1 = new User("John", 13, "aaa@aol.com");
-        User player2 = new User("Sarah", 14, "aaa@aol.com");
-        User player3 = new User("Bob", 15, "aaa@aol.com");
+        player1 = new User("John", 13, "aaa@aol.com");
+        player2 = new User("Sarah", 14, "aaa@aol.com");
+        player3 = new User("Bob", 15, "aaa@aol.com");
         game.addPlayer(player1);
         game.addPlayer(player2);
         game.addPlayer(player3);
         while (!(game.gameStatus())) {
             while(game.isItTimeForPlayerToAsk()) {
-                Question currQuestion = new Question("What do you like with Chocolate?", game.getCurrAsker());
+                currQuestion = new Question("What do you like with Chocolate?", game.getCurrAsker());
                 // send notification to asker to enter question here
                 while (!(game.askQuestion(currQuestion))) {
                     // print "You did not enter a question!"
