@@ -31,6 +31,10 @@ public class Question {
         return responses.size();
     }
 
+    public String getQuestion() {
+        return message;
+    }
+
     // This method adds another player's response to the current question
     public boolean addAnswer(Response playerAnswer) {
         if (playerAnswer == null) {
