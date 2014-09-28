@@ -23,6 +23,14 @@ public class Question {
         return this.message;
     }
 
+    public User getAsker() {
+        return this.asker;
+    }
+
+    public int responseSize() {
+        return responses.size();
+    }
+
     // This method adds another player's response to the current question
     public boolean addAnswer(Response playerAnswer) {
         if (playerAnswer == null) {

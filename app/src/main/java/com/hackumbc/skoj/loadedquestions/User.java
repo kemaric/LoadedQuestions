@@ -10,14 +10,14 @@ public class User {
     private int userId;
     private String email;
     private String userName;
-    private ArrayList<User> friendsList;
+    private int[] friendsList;
     private int numGamesWon = 0;
     private int numGamesLost = 0;
-    private int currSpace = 0;
+    private int currSpace = 1;
     private ArrayList<String> questionHist = new ArrayList<String>();
     private boolean requireMove;
 
-    public User (String name, int id, String email, ArrayList<User> friends) {
+    public User (String name, int id, String email, int[] friends) {
         userName = name;
         userId = id;
         this.email = email;
