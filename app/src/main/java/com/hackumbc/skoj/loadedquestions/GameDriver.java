@@ -35,17 +35,26 @@ public class GameDriver extends FragmentActivity {
 
             // question is sent to other players and they must now respond
             while (game.isItTimeForPlayersToRespond()) {
-                // wait(1o min);
+                try {
+                    Thread.sleep(600000);                 //1000 milliseconds is one second.
+                } catch(InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
                 for (User x : game.getPlayerList()) {
                     if (!((game.getCurrAsker()).equals(x)) && x.isMoveNeeded()) {
                         int indexOfPlayer = game.getIndexOfUser(x);
+                        // will take their input
                         Response playerAnswer = new Response(x, "peanuts");
                         game.logPlayerResponse(playerAnswer);
                     }
                 }
             }
 
+            while (game.isItTimeForPlayerToMatch()) {
+                // Drag and drop chooses the input
 
+
+            }
 /*
 //      This code was for asynchronous threads...
 //            ExecutorService executorService = Executors.newSingleThreadExecutor();

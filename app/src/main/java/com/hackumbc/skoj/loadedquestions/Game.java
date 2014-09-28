@@ -29,7 +29,7 @@ public class Game {
         askPeriod = true;
     }
 
-    public boolean askQuestion (Question question) {
+    public boolean askQuestion(Question question) {
         if (question != null) {
             currQuestion = question;
             askPeriod = false;
@@ -109,8 +109,7 @@ public class Game {
             turnChange = false;
             askPeriod = true;
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -132,5 +131,22 @@ public class Game {
             }
         }
         return false;
+    }
+
+    public void matchUserInput(Response guess1, Response guess2, Response guess3) {
+        int score = 0;
+        for (int i = 0; i < 3; i++) {
+            if (currQuestion.isGuessCorrect((guess1))) {
+                score++;
+                if (currQuestion.isGuessCorrect((guess2))) {
+                    score++;
+                }
+                if (currQuestion.isGuessCorrect((guess3))) {
+                    score++;
+                }
+            }
+            int index = this.getIndexOfUser(this.currAsker);
+            (players.get(index)).movePlayer(score);
+        }
     }
 }
