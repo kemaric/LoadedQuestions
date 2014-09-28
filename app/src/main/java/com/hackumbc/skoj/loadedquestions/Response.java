@@ -21,4 +21,9 @@ public class Response {
         return response;
     }
 
+    public boolean equalsResponse(Response other) {
+        return (this.response.equals(other.response)) && (this.responder.equalsOtherPlayer(
+                other.responder));
+    }
+
 }

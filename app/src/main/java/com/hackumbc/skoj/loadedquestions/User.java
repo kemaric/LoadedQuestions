@@ -13,14 +13,17 @@ public class User {
     private ArrayList<User> friendsList;
     private int numGamesWon = 0;
     private int numGamesLost = 0;
-    private int currSpace = 0;
+    private int currSpace = 1;
     private ArrayList<String> questionHist = new ArrayList<String>();
-    private boolean requireMove;
+    private boolean requireMove = true;
 
-    public User (String name, int id, String email, ArrayList<User> friends) {
+    public User (String name, int id, String email) {
         userName = name;
         userId = id;
         this.email = email;
+    }
+
+    public void addFriendsList(ArrayList<User> friends) {
         friendsList = friends;
     }
 
@@ -34,6 +37,14 @@ public class User {
 
     public String getUserName() {
         return this.userName;
+    }
+
+    public int getCurrSpace() {
+        return currSpace;
+    }
+
+    public boolean isMoveNeeded() {
+        return requireMove;
     }
 
     // Adds the previously guessed question to the user's question history.
@@ -60,4 +71,15 @@ public class User {
         requireMove = false;
     }
 
+    public boolean equalsOtherPlayer(User other) {
+        if (this == null) {
+            return false;
+        }
+        else if (this == other) {
+            return true;
+        }
+        else {
+            return this.userId == other.userId;
+        }
+    }
 }

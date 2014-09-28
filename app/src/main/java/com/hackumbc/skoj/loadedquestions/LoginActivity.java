@@ -109,7 +109,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                 return false;
             }
         });
-
+        mPasswordView.getText().toString();
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override

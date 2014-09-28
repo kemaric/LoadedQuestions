@@ -9,9 +9,20 @@
     tools:context=".LoadedQuestionMain$PlaceholderFragment">
 
     <TextView
-        android:text="Game"
+        android:text="Enter your response"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"/>
+        android:id="@+id/responseTextView" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences|textAutoCorrect"
+        android:ems="10"
+        android:id="@+id/responseEditText"
+        android:autoText="false"
+        android:editable="true"
+        android:focusable="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

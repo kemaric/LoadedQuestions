@@ -19,8 +19,16 @@ public class Question {
         this.asker = asker;
     }
 
-    public String getQuestion() {
-        return this.message;
+    public ArrayList<Response> getResponses() {
+        return this.responses;
+    }
+
+    public User getAsker() {
+        return this.asker;
+    }
+
+    public int responseSize() {
+        return responses.size();
     }
 
     // This method adds another player's response to the current question
@@ -36,14 +44,13 @@ public class Question {
 
     // This checks to see if the player who asked the question correctly guessed another player's
     // response with their name.
-    public boolean isGuessCorrect(String responseMatchGuess, String playerName) {
-        if (responseMatchGuess == null || playerName == null) {
+    public boolean isGuessCorrect(Response guess) {
+        if (guess == null) {
             // show toast: "You did not select a valid guess"
             return false;
         }
         for (Response i : responses) {
-            if (((i.getUser()).getUserName()).equals(playerName) && (i.getResponse()).equals(
-                    responseMatchGuess)) {
+            if (((i.getUser()).equalsOtherPlayer(guess.getUser()))) {
                 // Toast "You guessed correctly!"
                 return true;
             }
