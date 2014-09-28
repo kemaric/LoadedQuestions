@@ -12,7 +12,8 @@
         android:text="Enter your question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/questionTextView" />
+        android:id="@+id/questionTextView"
+        android:layout_centerHorizontal="true"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -23,6 +24,7 @@
         android:autoText="false"
         android:editable="true"
         android:focusable="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        />
 
 </RelativeLayout>
