@@ -19,7 +19,7 @@
             android:id="@+id/myprofpic"
             android:layout_gravity="center"
             android:contentDescription="Generic user"
-            android:src="@drawable/generic-user"
+            android:src="@drawable/generic_user"
             />
 
 </RelativeLayout>
