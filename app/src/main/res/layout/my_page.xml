@@ -6,12 +6,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".LoadedQuestionMain$PlaceholderFragment">
+    tools:context=".LoadedQuestionMain$PlaceholderFragment"
+    android:id="@+id/myprofile">
 
         <TextView
-            android:text="@string/hello_world"
+            android:text="@string/username"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/usename"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -19,7 +23,83 @@
             android:id="@+id/myprofpic"
             android:layout_gravity="center"
             android:contentDescription="Generic user"
-            android:src="@drawable/generic-user"
-            />
+            android:src="@drawable/generic_user"
+            android:layout_above="@+id/usename"
+            android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/win_num"
+
+        android:textAlignment="center"
+        android:text="0"
+        android:layout_toStartOf="@+id/usename"
+        android:layout_marginTop="64dp"
+        android:layout_below="@+id/usename"
+        android:layout_toLeftOf="@+id/usename" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/lose_num"
+        android:layout_toEndOf="@+id/usename"
+        android:textAlignment="center"
+        android:text="0"
+        android:layout_alignTop="@+id/win_num"
+        android:layout_toRightOf="@+id/usename" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText3"
+        android:layout_toStartOf="@+id/myprofpic"
+        android:text="@string/winnings"
+        android:layout_alignTop="@+id/lose_num" /> />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText4"
+        android:text="@string/losses"
+        android:layout_alignTop="@+id/win_num"
+        android:layout_alignRight="@+id/lose_num"
+        android:layout_alignBottom="@+id/lose_num"
+        android:layout_toRightOf="@+id/myprofpic"
+        android:layout_toEndOf="@+id/myprofpic" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/total_score"
+        android:textAlignment="center"
+        android:text="0"
+        android:layout_toStartOf="@+id/editText4"
+        android:layout_toEndOf="@+id/win_num"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/win_num"
+        android:layout_marginBottom="57dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_toStartOf="@+id/editText4"
+        android:text="@string/total_score"
+        android:textAlignment="center"
+        android:layout_toEndOf="@+id/editText3"
+        android:layout_alignTop="@+id/total_score"
+        android:layout_alignRight="@+id/total_score"
+        android:layout_alignEnd="@+id/total_score"
+        android:layout_alignBottom="@+id/total_score"
+        android:layout_alignLeft="@+id/editText3"
+        android:layout_alignStart="@+id/editText3" />
+
 
 </RelativeLayout>

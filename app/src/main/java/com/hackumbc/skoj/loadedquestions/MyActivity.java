@@ -1,5 +1,6 @@
 package com.hackumbc.skoj.loadedquestions;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,6 +32,8 @@ public class MyActivity extends FragmentActivity {
      * This is the ViewPager that will hold the app's content.
      */
     ViewPager mainViewPager;
+    private SharedPreferences mPrefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,7 @@ public class MyActivity extends FragmentActivity {
         //getting the viewpage in the main_view.xml
         ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
         //setting the ViewPagerAdapter into ViewPager
-        Toast.makeText(getApplicationContext(),"Starting the app!",Toast.LENGTH_SHORT);
+        Toast.makeText(getApplicationContext(),"Starting the app!",Toast.LENGTH_LONG).show();
 
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         //Creating the adapter that will return a fragment for each of the selections
@@ -64,4 +67,30 @@ public class MyActivity extends FragmentActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+
+        // etc.
+    }
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+    }
+
+    //Saves the app when moved out of view
+    public void onPause(){
+        super.onPause();
+    }
+
+    public void onResume(){
+        super.onResume();
+    }
+
 }

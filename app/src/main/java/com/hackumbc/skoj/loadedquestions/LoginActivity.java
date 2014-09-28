@@ -70,10 +70,11 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
     private SignInButton mPlusSignInButton;
     private View mSignOutButtons;
     private View mLoginFormView;
-    private Button confirmreg, defaultRegButton,defaultLoginB;
+    private Button confirmreg, defaultRegButton,defaultLoginB = (Button) findViewById(R.id.default_login_button);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Toast.makeText(this,"Starting login",Toast.LENGTH_LONG);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -126,7 +127,6 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             }
         });
 
-        defaultLoginB = (Button) findViewById(R.id.default_login_button);
         defaultLoginB.setOnClickListener(new OnClickListener() {
             @Override
            public void onClick(View v) {
