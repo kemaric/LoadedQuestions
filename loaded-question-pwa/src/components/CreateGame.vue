@@ -5,23 +5,24 @@
     <input
       id="playerCount"
       v-model="numberOfPlayers"
-      v-bind:min="DEFAULT_MIN_PLAYERS"
+      :min="minPlayers"
       type="number"
     />
   </div>
 </template>
 
 <script>
-const DEFAULT_MIN_PLAYERS = 4;
 export default {
   props: {
     minPlayers: Number
   },
   data: function () {
     return {
-      numberOfPlayers: this.minPlayers || DEFAULT_MIN_PLAYERS,
+      numberOfPlayers: this.minPlayers,
       players: []
     };
+  },
+  methods: {
   }
 };
 </script>
