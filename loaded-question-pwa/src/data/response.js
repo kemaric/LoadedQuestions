@@ -13,7 +13,7 @@ export class Response {
   }
 
   getResponse () {
-    return response;
+    return this.response;
   }
 
   equalsResponse (other) {

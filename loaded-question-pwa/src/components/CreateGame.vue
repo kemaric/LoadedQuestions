@@ -19,6 +19,7 @@
 <script>
 import { Game } from '../data/game';
 import { User } from '../data/user';
+import { generateID } from '../utils';
 export default {
   props: {
     minPlayers: Number
@@ -42,7 +43,7 @@ export default {
       if (!this.validateUserName(this.gameDTO.startingPlayer)) {
         return alert('Username is already taken or invalid. Enter a new one');
       }
-      const id = window.crypto.getRandomValues(new Uint32Array(10)).reduce((prev, curr) => (prev = (prev + curr) * 2 ** 9) && prev, 0);
+      const id = generateID()
       const creator = new User({ userName: this.gameDTO.startingPlayer, id });
       this.gameDTO.players.push(creator);
       this.lobbyIsOpen = true;

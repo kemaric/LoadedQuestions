@@ -46,7 +46,7 @@ export class Question {
       // show toast: "You did not select a valid guess"
       return false;
     }
-    for (const i of responses) {
+    for (const i of this.responses) {
       if (((i.getUser()).equalsOtherPlayer(guess.getUser()))) {
         // Toast "You guessed correctly!"
         return true;

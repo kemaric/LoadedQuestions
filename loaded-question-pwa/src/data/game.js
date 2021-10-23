@@ -166,8 +166,4 @@ export class Game {
   matchUserInputforSix (guess1, guess2, guess3, guess4, guess5) {
     this.matchUserInputforN([guess1, guess2, guess3, guess4, guess5]);
   }
-
-  static generateID () {
-    window.crypto.getRandomValues(new Uint32Array(6)).reduce((prev, curr) => (prev = (prev + curr) * 2 ** 9) && prev, 0);
-  }
 }
