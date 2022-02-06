@@ -6,7 +6,7 @@ export class User {
     this.userName = userName || '';
     this.email = email || '';
     this.friendsList = friendsList || [];
-    this._userId = id || '';
+    this.id = id || '';
     this._numGamesWon = 0;
     this._numGamesLost = 0;
     this._currSpace = 1;
@@ -80,11 +80,11 @@ export class User {
     } else if (this === other) {
       return true;
     } else {
-      return this.userId === other.userId && this.getUserName() === other.getUserName();
+      return this.id === other.id && this.getUserName() === other.getUserName();
     }
   }
 
   equalsOtherPlayerById (otherId) {
-    return this.userId === otherId;
+    return this.id === otherId;
   }
 }
