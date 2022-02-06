@@ -4,7 +4,7 @@
       <img alt="Vue logo" src="../assets/logo.png">
     </div>
     <Login></Login>
-    <CreateGame v-if="player" :minPlayers="4"></CreateGame>
+    <CreateGame v-if="player" :minPlayers="4" :currentPlayer="player"></CreateGame>
   </div>
 </template>
 
