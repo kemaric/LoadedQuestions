@@ -1,16 +1,8 @@
-export function QuestionDataAccessLayer (options = {}) {
+export function QuestionDataAccessLayer (init = {}) {
   /**
      * Store for the question bank for any and all games.
      */
-  const QuestionStore = {
-    'demo-question-hash': {
-      questionId: 'demo-question',
-      tags: ['demo'],
-      text: 'Demo',
-      // store other meta data about the question
-      metaData: {}
-    }
-  };
+  const { QuestionStore = DEFAULT_QUESTION_STORE() } = init;
 
   this.get = (questionId) => {
     return QuestionStore[questionId];
@@ -29,3 +21,13 @@ export function QuestionDataAccessLayer (options = {}) {
 
   return this;
 }
+
+const DEFAULT_QUESTION_STORE = () => ({
+  'demo-question-hash': {
+    questionId: 'demo-question',
+    tags: ['demo'],
+    text: 'Demo',
+    // store other meta data about the question
+    metaData: {}
+  }
+});

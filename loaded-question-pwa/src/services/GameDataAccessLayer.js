@@ -1,28 +1,14 @@
-export function GameDataAccessLayer (options = {}) {
+export function GameDataAccessLayer (init = {}) {
   /**
-     * Store's the general Game data with the key as the game's hash.
-     */
-  const GameStore = {
-    'demo-game-hash': {
-      gameId: 'demo-game',
-      players: [],
-      hostPlayer: '',
-      judgePlayer: '',
-      loadedQuestions: [],
-      unloadedQuestions: []
-    }
-  };
+   * Store's the general Game data with the key as the game's hash.
+   */
+  const { GameStore = DEFAULT_GAME_STORE(), gameId } = init;
 
-  const { apiKey, apiSecret } = options;
+  const { apiKey = '', apiSecret = '' } = init;
   this.apiKey = apiKey;
   this.apiSecret = apiSecret;
-
-  this.updateConfig = (config) => {
-    const { apiKey, apiSecret, gameId } = config;
-    this.apiKey = apiKey;
-    this.apiSecret = apiSecret;
-    this.gameId = gameId;
-  };
+  this.gameId = gameId;
+  this.gameStore = GameStore;
 
   this.add = (game = {}) => {
     throw new Error('Method not implemented');
@@ -42,3 +28,14 @@ export function GameDataAccessLayer (options = {}) {
 
   return this;
 }
+
+const DEFAULT_GAME_STORE = () => ({
+  'demo-game-hash': {
+    gameId: 'demo-game',
+    players: [],
+    hostPlayer: '',
+    judgePlayer: '',
+    loadedQuestions: [],
+    unloadedQuestions: []
+  }
+});

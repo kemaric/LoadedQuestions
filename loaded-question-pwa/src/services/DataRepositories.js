@@ -3,16 +3,13 @@ import { PlayerDataAccessLayer } from './PlayerDataAccessLayer';
 import { QuestionDataAccessLayer } from './QuestionDataAccessLayer';
 import { ResponseDataAccessLayer } from './ResponseDataAccessLayer';
 
-export function DataRepositories (config) {
-  const gameRepo = new GameDataAccessLayer(config);
-  const playerRepo = new PlayerDataAccessLayer(config);
-  const questionRepo = new QuestionDataAccessLayer(config);
-  const responseRepo = new ResponseDataAccessLayer(config);
+export function DataRepositories (config = {}) {
+  const { gameRepo, playerRepo, questionRepo, responseRepo } = config;
 
-  this.getGameRepo = () => gameRepo;
-  this.getPlayerRepo = () => playerRepo;
-  this.getQuestionRepo = () => questionRepo;
-  this.getResponseRepo = () => responseRepo;
+  this.gameRepo = new GameDataAccessLayer(gameRepo);
+  this.playerRepo = new PlayerDataAccessLayer(playerRepo);
+  this.questionRepo = new QuestionDataAccessLayer(questionRepo);
+  this.responseRepo = new ResponseDataAccessLayer(responseRepo);
 
   return this;
 }
