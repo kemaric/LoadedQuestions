@@ -17,10 +17,12 @@ const mutations = {
   login (state, player) {
     console.log('Loggin in player', JSON.stringify(state?.repo?.playerRepo), JSON.stringify(player));
     state.repo.playerRepo.add(player);
+    state.playerId = player.id;
   },
   logout (state) {
     console.log('Logout player', JSON.stringify(state?.repo?.playerRepo));
     state.repo.playerRepo.remove(state.playerId);
+    state.playerId = null;
   }
 }
 
@@ -37,9 +39,9 @@ const actions = {
   login ({ commit, state }, user) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        commit('login', user, JSON.stringify(state?.repo?.playerRepo));
+        commit('login', user);
         resolve();
-      }, 1000)
+      }, 500)
     });
   },
   /**
@@ -50,11 +52,16 @@ const actions = {
     commit('logout');
   }
 };
+
+const getters = {
+  getCurrentUser: state => state.repo.playerRepo.get(state.playerId)
+}
 /**
  * Store service used to hold the application state and Data access Layer object.
  */
 export const store = createStore({
   state: initialState,
   mutations,
-  actions
+  actions,
+  getters
 });
